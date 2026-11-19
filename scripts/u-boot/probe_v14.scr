@@ -1,0 +1,21 @@
+# ME211 v14 -- READ ONLY. Kernel + Device-Tree dump.
+
+echo ME211v14 begin
+
+mw.l 0x3300000 0x4b4f564e
+fatwrite usb 0:auto 0x3300000 me211v14_ran.bin 4
+
+nand read 0x3400000 0x700000 0xc0000
+fatwrite usb 0:auto 0x3400000 me211v14_fdt0.bin 0xc0000
+
+nand read 0x3400000 0x7c0000 0xc0000
+fatwrite usb 0:auto 0x3400000 me211v14_fdt1.bin 0xc0000
+
+nand read 0x3400000 0x880000 0x700000
+fatwrite usb 0:auto 0x3400000 me211v14_ker0.bin 0x700000
+
+nand read 0x3400000 0xf80000 0x1100000
+fatwrite usb 0:auto 0x3400000 me211v14_ker1.bin 0x1100000
+
+echo ME211v14 done
+% <- this is end of file symbol

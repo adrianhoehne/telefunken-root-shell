@@ -1,0 +1,22 @@
+# ME211 v8 -- READ ONLY. Diagnose: welcher Part-Name greift, und liest ubi read?
+# Trick: Zielspeicher vorher mit AAAA/BBBB fuellen. Steht das im Dump,
+# hat ubi read nichts geschrieben.
+# Terminator line at the end is mandatory.
+
+echo ME211v8 begin
+
+mw.l 0x3300000 0x4b4f564e
+fatwrite usb 0:auto 0x3300000 me211v8_ran.bin 4
+
+ubi part fs0
+mw.l 0x3400000 0x41414141
+ubi read 0x3400000 ap0 0x10000
+fatwrite usb 0:auto 0x3400000 me211v8_A_fs0.bin 0x10000
+
+ubi part rootfs
+mw.l 0x3500000 0x42424242
+ubi read 0x3500000 ap0 0x10000
+fatwrite usb 0:auto 0x3500000 me211v8_B_rootfs.bin 0x10000
+
+echo ME211v8 done
+% <- this is end of file symbol

@@ -1,0 +1,9 @@
+# Example /conf/remote.txt for the backdoor.
+
+# Format:  <isgdb>:<samba-server-ip>:<username>:<password>
+#   isgdb=0 → run aurora.elf from the CIFS share (this is what we use)
+#   isgdb=1 → start gdbserver instead (needs gdbserver on the device; absent here)
+#
+# Guest mode (empty user/password) bypasses the missing NTLM crypto of the
+# 3.10 kernel — the Samba server must use `map to guest = bad user`.
+0:192.168.0.0::

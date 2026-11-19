@@ -1,0 +1,25 @@
+# ME211 v7 -- READ ONLY. Attach the UBI partitions and read volume heads.
+# Terminator line at the end is mandatory.
+
+echo ME211v7 begin
+
+mw.l 0x3300000 0x4b4f564e
+fatwrite usb 0:auto 0x3300000 me211v7_ran.bin 4
+
+ubi part fs0
+if ubi read 0x3300000 ap0 0x100000; then
+fatwrite usb 0:auto 0x3300000 me211v7_fs0_ap0.bin 0x100000
+fi
+
+ubi part ap0
+if ubi read 0x3300000 ap0 0x100000; then
+fatwrite usb 0:auto 0x3300000 me211v7_ap0_ap0.bin 0x100000
+fi
+
+ubi part apdat0
+if ubi read 0x3300000 apdat0 0x100000; then
+fatwrite usb 0:auto 0x3300000 me211v7_apdat0_apdat0.bin 0x100000
+fi
+
+echo ME211v7 done
+% <- this is end of file symbol

@@ -1,0 +1,25 @@
+# ME211 v16 -- READ ONLY. SPI-Flash-Dump (bis 8 MB, W25Q64).
+# sf probe haengt den Flash an; sf read liest ihn. Chunks von 2 MB mit Markern,
+# damit ein fehlgeschlagener Teil nicht den Rest unlesbar macht.
+
+echo ME211v16 begin
+
+mw.l 0x3300000 0x4b4f564e
+fatwrite usb 0:auto 0x3300000 me211v16_ran.bin 4
+
+sf probe
+
+sf read 0x3400000 0x0 0x200000
+fatwrite usb 0:auto 0x3400000 me211v16_spi_0.bin 0x200000
+
+sf read 0x3400000 0x200000 0x200000
+fatwrite usb 0:auto 0x3400000 me211v16_spi_1.bin 0x200000
+
+sf read 0x3400000 0x400000 0x200000
+fatwrite usb 0:auto 0x3400000 me211v16_spi_2.bin 0x200000
+
+sf read 0x3400000 0x600000 0x200000
+fatwrite usb 0:auto 0x3400000 me211v16_spi_3.bin 0x200000
+
+echo ME211v16 done
+% <- this is end of file symbol

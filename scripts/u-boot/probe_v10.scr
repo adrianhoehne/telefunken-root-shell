@@ -1,0 +1,15 @@
+# ME211 v10 -- READ ONLY. Attach ap0 (760 PEBs, slow) and read one LEB.
+
+echo ME211v10 begin
+
+mw.l 0x3300000 0x4b4f564e
+fatwrite usb 0:auto 0x3300000 me211v10_ran.bin 4
+
+ubi part ap0
+
+mw.l 0x3400000 0x41414141
+ubi read 0x3400000 ap0 0x40000
+fatwrite usb 0:auto 0x3400000 me211v10_ap0_256k.bin 0x40000
+
+echo ME211v10 done
+% <- this is end of file symbol

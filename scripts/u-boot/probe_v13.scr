@@ -1,0 +1,18 @@
+# ME211 v13 -- READ ONLY. Raw dump of ap0, blocks 4-6 (rest, 72 MB).
+
+echo ME211v13 begin
+
+mw.l 0x3300000 0x4b4f564e
+fatwrite usb 0:auto 0x3300000 me211v13_ran.bin 4
+
+nand read 0x3400000 0xb480000 0x2000000
+fatwrite usb 0:auto 0x3400000 me211v12_ap0raw_4.bin 0x2000000
+
+nand read 0x3400000 0xd480000 0x2000000
+fatwrite usb 0:auto 0x3400000 me211v12_ap0raw_5.bin 0x2000000
+
+nand read 0x3400000 0xf480000 0x800000
+fatwrite usb 0:auto 0x3400000 me211v12_ap0raw_6.bin 0x800000
+
+echo ME211v13 done
+% <- this is end of file symbol

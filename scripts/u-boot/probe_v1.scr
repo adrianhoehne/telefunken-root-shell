@@ -1,0 +1,49 @@
+# 17MB211 Probe v1 -- NUR LESEN
+#
+# Liest je 1 MB vom Anfang der beiden UBI-Volumes und schreibt sie auf den Stick.
+# Aus dem UBIFS-Superblock am Volumeanfang lassen sich danach Volumengroesse und
+# Blockgroesse berechnen. Es wird nichts geschrieben, nichts geloescht, nichts
+# beschrieben ausser Dateien auf dem Stick.
+#
+# Datei auf dem Stick: shredder_usb_update.scr  (Wurzel, FAT32, LF-Zeilenenden)
+
+echo ME211: probe start
+
+mw.l 0x5000000 0x4d453231
+fatwrite usb 0:auto 0x5000000 me211_start.bin 4
+
+# --- UBI-Partition finden -------------------------------------------------
+if ubi part ap; then
+  echo ME211: partition=ap
+elif ubi part fs; then
+  echo ME211: partition=fs
+elif ubi part fs0; then
+  echo ME211: partition=fs0
+elif ubi part ap0; then
+  echo ME211: partition=ap0
+else
+  echo ME211: KEINE UBI-Partition gefunden
+  mw.l 0x5000000 0x4b45494e
+  fatwrite usb 0:auto 0x5000000 me211_keine_ubi.bin 4
+fi
+
+# --- je 1 MB vom Volumeanfang lesen --------------------------------------
+if ubi read 0x3300000 ap0 0x100000; then
+  echo ME211: ap0 gelesen
+  fatwrite usb 0:auto 0x3300000 me211_ap0_head.bin 0x100000
+else
+  echo ME211: ap0 nicht lesbar
+  mw.l 0x5000000 0x41503046
+  fatwrite usb 0:auto 0x5000000 me211_ap0_fehler.bin 4
+fi
+
+if ubi read 0x3300000 apdat0 0x100000; then
+  echo ME211: apdat0 gelesen
+  fatwrite usb 0:auto 0x3300000 me211_apdat0_head.bin 0x100000
+else
+  echo ME211: apdat0 nicht lesbar
+  mw.l 0x5000000 0x41504446
+  fatwrite usb 0:auto 0x5000000 me211_apdat0_fehler.bin 4
+fi
+
+echo ME211: probe fertig

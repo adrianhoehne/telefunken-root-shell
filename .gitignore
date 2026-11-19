@@ -1,0 +1,4 @@
+__pycache__/
+*.pyc
+conf_jb.ubifs
+conf_rec.ubifs

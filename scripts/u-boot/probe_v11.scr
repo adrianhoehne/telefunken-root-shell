@@ -1,0 +1,16 @@
+# ME211 v11 -- READ ONLY. Full ap0 volume dump (526 LEBs).
+# Takes several minutes: attach 760 PEBs, read 127 MB, write to FAT32.
+
+echo ME211v11 begin
+
+mw.l 0x3300000 0x4b4f564e
+fatwrite usb 0:auto 0x3300000 me211v11_ran.bin 4
+
+ubi part ap0
+
+mw.l 0x3400000 0x41414141
+ubi read 0x3400000 ap0 0x7F64000
+fatwrite usb 0:auto 0x3400000 me211v11_ap0_full.bin 0x7F64000
+
+echo ME211v11 done
+% <- this is end of file symbol

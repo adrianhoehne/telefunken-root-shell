@@ -1,0 +1,9 @@
+FROM ubuntu:24.04
+# Werkzeugkasten für den Mitschnitt: tcpdump, iproute2 (ip neigh/ip route),
+# python3 für die ARP-Umleitung. Kein weiterer Inhalt, damit das Image klein
+# und nachvollziehbar bleibt.
+RUN apt-get update -qq \
+ && DEBIAN_FRONTEND=noninteractive apt-get install -y -qq --no-install-recommends \
+      tcpdump iproute2 iptables python3 ca-certificates \
+ && rm -rf /var/lib/apt/lists/*
+ENTRYPOINT ["/bin/bash"]

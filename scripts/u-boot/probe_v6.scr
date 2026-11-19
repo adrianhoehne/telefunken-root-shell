@@ -1,0 +1,13 @@
+# ME211 v6 -- READ ONLY. Export the U-Boot environment to the stick (mtdparts!).
+# Terminator line at the end is mandatory.
+
+echo ME211v6 begin
+
+mw.l 0x3300000 0x4b4f564e
+fatwrite usb 0:auto 0x3300000 me211v6_ran.bin 4
+
+env export -t 0x3300000
+fatwrite usb 0:auto 0x3300000 me211v6_env.txt 0x2000
+
+echo ME211v6 done
+% <- this is end of file symbol

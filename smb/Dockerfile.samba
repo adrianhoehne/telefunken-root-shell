@@ -1,0 +1,4 @@
+FROM ubuntu:24.04
+RUN apt-get update -qq && DEBIAN_FRONTEND=noninteractive apt-get install -y -qq samba && rm -rf /var/lib/apt/lists/*
+EXPOSE 139 445
+ENTRYPOINT ["smbd", "-F", "--no-process-group", "-s", "/etc/samba/smb.conf"]

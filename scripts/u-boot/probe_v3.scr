@@ -1,0 +1,13 @@
+# ME211 v3 -- READ ONLY. marker plus raw NAND head dump.
+# Terminator line at the end is mandatory.
+
+echo ME211v3 begin
+
+mw.l 0x3300000 0x4b4f564e
+fatwrite usb 0:auto 0x3300000 me211v3_ran.bin 4
+
+nand read 0x3300000 0x0 0x100000
+fatwrite usb 0:auto 0x3300000 me211v3_nand_head.bin 0x100000
+
+echo ME211v3 done
+% <- this is end of file symbol

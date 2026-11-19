@@ -1,0 +1,13 @@
+# ME211 v19 -- READ ONLY. Sicherung des apdat0-Volumes vor dem Schreiben.
+
+echo ME211v19 begin
+
+mw.l 0x3300000 0x4b4f564e
+fatwrite usb 0:auto 0x3300000 me211v19_ran.bin 4
+
+ubi part apdat0
+ubi read 0x3400000 apdat0 0x1400000
+fatwrite usb 0:auto 0x3400000 me211v19_apdat0_backup.bin 0x1400000
+
+echo ME211v19 done
+% <- this is end of file symbol

@@ -1,0 +1,23 @@
+echo ME211v2 start
+mw.l 0x5000000 0x56320031
+fatwrite usb 0:auto 0x5000000 me211v2_start.bin 4
+ubi part ap
+if ubi read 0x3300000 ap0 0x100000; then
+fatwrite usb 0:auto 0x3300000 me211v2_ap_ok.bin 0x100000
+fi
+ubi part fs
+if ubi read 0x3300000 ap0 0x100000; then
+fatwrite usb 0:auto 0x3300000 me211v2_fs_ok.bin 0x100000
+fi
+ubi part fs0
+if ubi read 0x3300000 ap0 0x100000; then
+fatwrite usb 0:auto 0x3300000 me211v2_fs0_ok.bin 0x100000
+fi
+ubi part ap0
+if ubi read 0x3300000 ap0 0x100000; then
+fatwrite usb 0:auto 0x3300000 me211v2_ap0_ok.bin 0x100000
+fi
+if ubi read 0x3300000 apdat0 0x100000; then
+fatwrite usb 0:auto 0x3300000 me211v2_apdat0_ok.bin 0x100000
+fi
+echo ME211v2 fertig

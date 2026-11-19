@@ -1,0 +1,13 @@
+# ME211 v4 -- READ ONLY. 32 MiB dump from offset 0 to find the UBI volumes.
+# Terminator line at the end is mandatory.
+
+echo ME211v4 begin
+
+mw.l 0x3300000 0x4b4f564e
+fatwrite usb 0:auto 0x3300000 me211v4_ran.bin 4
+
+nand read 0x3300000 0x0 0x2000000
+fatwrite usb 0:auto 0x3300000 me211v4_nand_32m.bin 0x2000000
+
+echo ME211v4 done
+% <- this is end of file symbol

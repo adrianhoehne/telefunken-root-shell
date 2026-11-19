@@ -1,0 +1,13 @@
+# ME211 v5 -- READ ONLY. 32 MiB dump starting at 0x2000000 (32-64 MB).
+# Terminator line at the end is mandatory.
+
+echo ME211v5 begin
+
+mw.l 0x3300000 0x4b4f564e
+fatwrite usb 0:auto 0x3300000 me211v5_ran.bin 4
+
+nand read 0x3300000 0x2000000 0x2000000
+fatwrite usb 0:auto 0x3300000 me211v5_nand_32_64m.bin 0x2000000
+
+echo ME211v5 done
+% <- this is end of file symbol
