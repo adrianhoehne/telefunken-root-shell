@@ -31,6 +31,15 @@ IPs) are removed. The vendor-hardcoded MAC `D4:E2:CC:EC:45:E9` is kept — it is
 identical on every `17MB211` unit. Raw dumps and captures are **not** part of
 this repository.
 
+## License
+
+This repository is dual-licensed:
+
+| Part | License |
+| --- | --- |
+| Documentation (`README.md`, `VESTEL-MB211-ROOT-SHELL.md`) | [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/) — see `LICENSE.docs` |
+| Code (scripts, `payload/`) | [MIT](https://opensource.org/licenses/MIT) — see `LICENSE` |
+
 ## Status
 
 The full German investigation log (218 evidence-tagged observations) and the
