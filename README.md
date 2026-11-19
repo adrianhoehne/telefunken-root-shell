@@ -39,6 +39,7 @@ raw dumps live in a separate private workspace.
 ---
 
 **Footnote.** This project took **two days**. The analysis was done mostly by
-an AI assistant; the orchestration — deciding the next step, holding the
-remote, plugging cables — was done by the human operator. A warning for
+an AI assistant; the orchestration — deciding the next step, putting it into
+the right direction, holding the remote, plugging cables — was done by the
+human operator. A warning for
 anyone with a similar idea: **this is not a one-prompt path.**
