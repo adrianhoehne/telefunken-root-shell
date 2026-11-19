@@ -12,12 +12,16 @@ The device has received no security updates since.
 - **[VESTEL-MB211-ROOT-SHELL.md](VESTEL-MB211-ROOT-SHELL.md)** — the full
   writeup: the device, the three access channels, the path to root, a
   detailed **failures-and-fixes** log, and the **data-extraction steps**.
+- **[UBIFS-LAYOUT-AND-WRITE-PATH.md](UBIFS-LAYOUT-AND-WRITE-PATH.md)** — the
+  definitive UBI/UBIFS layout (the "scatter" resolved), the volume table, and
+  the untested **write path** for patching `/vendor`.
 
 ## Repository layout
 
 ```
 scripts/           DevTools reader, file-system harvester, UBIFS parser,
-                   network capture — the tools used against the device
+                   network capture, tvcat.py (stream a tree off the TV over
+                   the root shell) — the tools used against the device
 scripts/u-boot/    the .scr scripts (U-Boot text scripts) for reading and
                    writing NAND/SPI flash, in the order they were used
 payload/           the ARM payload (telnetd + netcat starter) and its source
@@ -42,7 +46,7 @@ This repository is dual-licensed:
 
 ## Status
 
-The full German investigation log (218 evidence-tagged observations) and the
+The full German investigation log (225 evidence-tagged observations) and the
 raw dumps live in a separate private workspace.
 
 ---

@@ -135,6 +135,13 @@ operations". It copies the flag to `/conf`. After that, a crashing process
 writes its core dump to the stick — a read channel into root-process memory
 (we got two ARM core dumps of the TV app `idtv` this way).
 
+### 3.4 Full extraction over the root shell
+
+Once the root shell was up, every mounted volume could be read directly —
+closing the ap0 gap that the carve parser could only sample. The definitive
+UBI layout, the two remaining hurdles, and the write path are documented in
+[UBIFS-LAYOUT-AND-WRITE-PATH.md](UBIFS-LAYOUT-AND-WRITE-PATH.md).
+
 ---
 
 ## 4. The path to root
@@ -225,16 +232,23 @@ the browser as a write channel.
 ### 5.8 "`ubi read` returns the volume in the wrong order"
 **Diagnosis:** the vendor scatters the logical blocks; the UBIFS master nodes
 are absent. **Fix:** none for ap0 — worked around with a carve parser (5.9).
+**Resolved:** the "scatter" is a PEB-size mismatch — the vendor's UBI PEB is
+248 KiB, not the 256 KiB MTD block size. See
+[UBIFS-LAYOUT-AND-WRITE-PATH.md](UBIFS-LAYOUT-AND-WRITE-PATH.md).
 
 ### 5.9 "All standard UBIFS tools fail"
 **Diagnosis:** every tool walks the B-tree from the master node; there is no
 master node. **Fix:** `scripts/ubifs_carve.py` scans for UBIFS nodes by magic,
 joins them by (inode, block) keys, and LZO-decompresses them — recovering
 1,227 file names and 712 files.
+**Resolved:** with the root shell, `/vendor` mounts cleanly and all 3,876
+files are readable directly — the carve parser was only needed while the
+layout was unknown.
 
 ### 5.10 "`nand read` skips blocks and shifts everything"
 **Diagnosis:** bad-block skipping breaks the block-boundary assumption.
 **Fix:** none for ap0; irrelevant for the small apdat0 rewrite.
+**Resolved:** the shift came from the same 248-vs-256 KiB PEB mismatch.
 
 ### 5.11 "We dumped the wrong partition" (self-inflicted)
 **Diagnosis:** an offset error; the volume table named itself "buffer".
@@ -264,7 +278,10 @@ image before trusting it.
 | Channel list | gone; first-time setup re-ran |
 | PlayReady / Netflix keys | gone; not recoverable without the vendor |
 
-`/vendor` (the 120 MB application partition) was **never touched**.
+`/vendor` (the 120 MB application partition) was **never touched** — and is
+now **fully readable** through the root shell (see
+[UBIFS-LAYOUT-AND-WRITE-PATH.md](UBIFS-LAYOUT-AND-WRITE-PATH.md)); a future
+write path exists but has not been attempted.
 
 ---
 
