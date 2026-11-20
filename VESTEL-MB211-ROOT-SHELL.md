@@ -140,7 +140,9 @@ writes its core dump to the stick — a read channel into root-process memory
 Once the root shell was up, every mounted volume could be read directly —
 closing the ap0 gap that the carve parser could only sample. The definitive
 UBI layout, the two remaining hurdles, and the write path are documented in
-[UBIFS-LAYOUT-AND-WRITE-PATH.md](UBIFS-LAYOUT-AND-WRITE-PATH.md).
+[UBIFS-LAYOUT-AND-WRITE-PATH.md](UBIFS-LAYOUT-AND-WRITE-PATH.md); the
+practical dump-and-read recipe (full over the shell, partial offline) is in
+[DUMPING-AND-READING.md](DUMPING-AND-READING.md).
 
 ---
 

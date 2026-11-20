@@ -15,6 +15,10 @@ The device has received no security updates since.
 - **[UBIFS-LAYOUT-AND-WRITE-PATH.md](UBIFS-LAYOUT-AND-WRITE-PATH.md)** — the
   definitive UBI/UBIFS layout (the "scatter" resolved), the volume table, and
   the untested **write path** for patching `/vendor`.
+- **[DUMPING-AND-READING.md](DUMPING-AND-READING.md)** — how to make a dump
+  (root shell `tar` or offline `nand read`) and read it back (full via `tar`,
+  partial via the carve parser), plus why the raw image resists standard UBI
+  tools (the vendor's redundant page storage).
 
 ## Repository layout
 
