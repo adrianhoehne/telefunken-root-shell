@@ -3,5 +3,5 @@
 # Requires the cross-compiler (Debian/Ubuntu: apt install gcc-arm-linux-gnueabihf).
 set -euo pipefail
 cd "$(dirname "$0")"
-arm-linux-gnueabihf-gcc -static -Os -o aurora.elf payload5.c
+arm-linux-gnueabihf-gcc -static -Os -o aurora.elf payload7.c
 echo "built: aurora.elf"
