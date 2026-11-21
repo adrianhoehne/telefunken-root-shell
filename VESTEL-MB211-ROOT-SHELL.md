@@ -196,6 +196,10 @@ uid=0 gid=0
 The shell is persistent across reboots and iterable without further flash
 writes (copy a new `aurora.elf` to the share and reboot).
 
+What we built on top of the shell — a logging pipeline, app control, and a
+boot fallback — is documented in
+[LOGGING-AND-APP-CONTROL.md](LOGGING-AND-APP-CONTROL.md).
+
 ---
 
 ## 5. Failures and fixes

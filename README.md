@@ -19,6 +19,10 @@ The device has received no security updates since.
   (root shell `tar` or offline `nand read`) and read it back (full via `tar`,
   partial via the carve parser), plus why the raw image resists standard UBI
   tools (the vendor's redundant page storage).
+- **[LOGGING-AND-APP-CONTROL.md](LOGGING-AND-APP-CONTROL.md)** — the logging
+  pipeline (`logd` → kernel/app/key/boot logs on the SMB share), turning off
+  resident apps (Netflix), and the local `/conf` fallback so the TV boots
+  even without the share.
 
 ## Repository layout
 
