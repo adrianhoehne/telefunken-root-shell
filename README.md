@@ -23,6 +23,11 @@ The device has received no security updates since.
   pipeline (`logd` → kernel/app/key/boot logs on the SMB share), turning off
   resident apps (Netflix), and the local `/conf` fallback so the TV boots
   even without the share.
+- **[BOOT-LOOP-AND-RECOVERY.md](BOOT-LOOP-AND-RECOVERY.md)** — **read this
+  before enabling the backdoor.** Why `remote.txt` without a reachable share
+  puts the TV into an endless reboot, why a local payload copy does not save
+  you, the USB flash rescue images, and how to read the state off the serial
+  console.
 
 ## Repository layout
 

@@ -274,6 +274,23 @@ image before trusting it.
 **Diagnosis:** runtime `apt-get install` racing the container lifecycle.
 **Fix:** build a proper image (`smb/Dockerfile.samba`).
 
+### 5.15 "The TV reboots forever and shows no picture"
+**Diagnosis:** `/conf/remote.txt` present while the CIFS share was unreachable.
+The vendor start script has no fallback branch for a failed mount, so nothing
+starts and the watchdog restarts the box. A local payload copy in
+`/conf/remotelf/` does **not** help — the mount blocks longer than the watchdog
+waits.
+**Fix:** flash a `/conf` **without** `remote.txt` over USB, then configure the
+network, then re-enable the backdoor. Full story in
+[BOOT-LOOP-AND-RECOVERY.md](BOOT-LOOP-AND-RECOVERY.md).
+
+### 5.16 "The flash reported success and failure at the same time"
+**Diagnosis:** the read-back CRC after `ubi write` is unreliable — the script
+runs more than once and the read path mixes up 248 KiB PEBs with 256 KiB
+blocks. Both an `ok` and a `fail` marker end up on the stick.
+**Fix:** none needed; treat the marker as noise and judge by the device (a
+picture, or `PowerOnEvent` on the serial console).
+
 ---
 
 ## 6. What we gave up
@@ -288,6 +305,10 @@ image before trusting it.
 now **fully readable** through the root shell (see
 [UBIFS-LAYOUT-AND-WRITE-PATH.md](UBIFS-LAYOUT-AND-WRITE-PATH.md)); a future
 write path exists but has not been attempted.
+
+The boot loop we hit afterwards was **self-inflicted**: `remote.txt` in a
+`/conf` that had lost its network settings. It is documented in
+[BOOT-LOOP-AND-RECOVERY.md](BOOT-LOOP-AND-RECOVERY.md) so nobody repeats it.
 
 ---
 
